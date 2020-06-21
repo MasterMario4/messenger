@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.sda.messenger.frontend.dto.SendMessageDto;
 import pl.sda.messenger.model.Message;
+import pl.sda.messenger.model.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ public class MessageService {
     private final UsernameService usernameService;
     private final List<Message> allMessages = new ArrayList<>();
 
-    public List<Message> readAllMessages(){
+    public List<Message> readAllMessages() {
         return allMessages;
     }
 
-    public void postPublicMessage(final SendMessageDto messageDto){
-        allMessages.add(new Message(messageDto.getMessage(), LocalDateTime.now(),usernameService.getUsername()));
+    public void postPublicMessage(final SendMessageDto messageDto) {
+        allMessages.add(new Message(messageDto.getMessage(), LocalDateTime.now(), new User(usernameService.getUsername())));
     }
 }

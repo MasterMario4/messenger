@@ -25,15 +25,9 @@ public class FrontendController {
 
     @GetMapping("/")
     public String index(final Model model) {
-        model.addAttribute("allMessages", convertMessagesToText(messageService.readAllMessages()));
+        model.addAttribute("allMessages", messageService.readAllMessages());
         model.addAttribute("newMessage", new SendMessageDto());
         return "index";
-    }
-
-    private List<String> convertMessagesToText(final List<Message> messages) {
-        return messages.stream()
-                .map(m -> m.getTimestamp().format(FORMATTER_TIMESTAMP) + " " + m.getUsername() + " " + m.getMessage())
-                .collect(Collectors.toList());
     }
 
     @PostMapping("/")
