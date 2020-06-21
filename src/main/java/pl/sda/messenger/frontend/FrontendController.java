@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class FrontendController {
-    private static final DateTimeFormatter FORMATTER_TIMESTAMP= DateTimeFormatter.ofPattern("hh:mm:ss");
+    private static final DateTimeFormatter FORMATTER_TIMESTAMP = DateTimeFormatter.ofPattern("hh:mm:ss");
     private final MessageService messageService;
 
 
@@ -32,7 +32,7 @@ public class FrontendController {
 
     private List<String> convertMessagesToText(final List<Message> messages) {
         return messages.stream()
-                .map(m ->m.getTimestamp().format(FORMATTER_TIMESTAMP) + " " + m.getMessage())
+                .map(m -> m.getTimestamp().format(FORMATTER_TIMESTAMP) + " " + m.getUsername() + " " + m.getMessage())
                 .collect(Collectors.toList());
     }
 

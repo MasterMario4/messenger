@@ -12,4 +12,5 @@ import java.time.LocalDateTime;
 public class Message {
     private String message;
     private LocalDateTime timestamp;
+    private String username;
 }
