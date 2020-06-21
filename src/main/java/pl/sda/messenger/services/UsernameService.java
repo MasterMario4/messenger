@@ -19,15 +19,8 @@ public class UsernameService {
 //            "bocian biały", "bocian czarny", "jemiołuszka", "dzięcioł", "kawka", "wróbel", "sikorka bogatka", "papuga",
 //            "wieloryb", "delfin", "mors", "żółw", "bóbr", "foka", "czapla", "pingwin"};
 
-    private static final Set<String> generatedUsernames = new HashSet<>();
     private static final List<String> availableUserNames = new LinkedList<>();
-    private static int lastGeneratedIndex = 1;
-
-    static {
-        availableUserNames.addAll(Arrays.stream(NAMES)
-                .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1))
-                .collect(Collectors.toSet()));
-    }
+    private static int lastGeneratedIndex = 0;
 
 
     private String username = null;
@@ -43,13 +36,12 @@ public class UsernameService {
         if (availableUserNames.size() == 0) {
             lastGeneratedIndex++;
             availableUserNames.addAll(Arrays.stream(NAMES)
-                    .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1) + lastGeneratedIndex)
+                    .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1) +
+                            (lastGeneratedIndex == 1 ? "" : (" " + lastGeneratedIndex)))
                     .collect(Collectors.toSet()));
         }
 
         final int randomIndex = RANDOM.nextInt(availableUserNames.size());
-        final String name = availableUserNames.remove(randomIndex);
-        generatedUsernames.add(name);
-        return name;
+        return availableUserNames.remove(randomIndex);
     }
 }
