@@ -8,5 +8,11 @@
 
 <h1>NO ELO</h1>
 <h3 th:text="'Czas: ' + ${time}"></h3>
+
+<form method="post" th:object="${newMessage}">
+    <label for="newMessage">Message:</label>
+    <input id="newMessage" type="text" th:field="*{message}">
+    <button type="submit">Send</button>
+</form>
 </body>
 </html>
