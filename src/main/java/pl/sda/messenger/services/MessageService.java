@@ -13,14 +13,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MessageService {
-    private final UsernameService usernameService;
     private final List<Message> allMessages = new ArrayList<>();
 
-    public List<Message> readAllMessages() {
-        return allMessages;
+    public Message postPublicMessage(SendMessageDto messageDto) {
+        Message msg = new Message(messageDto.getText(), LocalDateTime.now(), new User(messageDto.getUsername()));
+        allMessages.add(msg);
+        return msg;
     }
 
-    public void postPublicMessage(final SendMessageDto messageDto) {
-        allMessages.add(new Message(messageDto.getMessage(), LocalDateTime.now(), new User(usernameService.getUsername())));
+    public List<Message> readAllPublicMessages() {
+        return allMessages;
     }
 }

@@ -10,15 +10,9 @@ import java.util.stream.Collectors;
 @SessionScope
 public class UsernameService {
     private static final Random RANDOM = new Random();
-    private static final String[] NAMES = {"kot", "pies", "chomik", "koń", "krowa", "kura", "indyk", "kogut", "świnia",
-            "słoń", "żyrafa", "tygrys", "lew", "mrówka", "pająk", "mysz polna", "jaszczurka", "żmija", "wąż", "zając",
-            "dzik", "królik", "wiewiórka", "żaba", "sarna", "jeleń", "pantera", "kuna", "małpa", "goryl", "hipopotam",
-            "niedźwiedź", "krokodyl", "borsuk", "wilk", "lis", "fretka", "surykatka", "panda", "jeż", "jeżozwierz",
-            "hiena", "leniwiec", "zebra", "kameleon", "łoś", "lama", "jastrząb", "jaskółka,sowa", "wrona", "gawron",
-            "bocian biały", "bocian czarny", "jemiołuszka", "dzięcioł", "kawka", "wróbel", "sikorka bogatka", "papuga",
-            "wieloryb", "delfin", "mors", "żółw", "bóbr", "foka", "czapla", "pingwin"};
-
-    private static final List<String> availableUserNames = new LinkedList<>();
+    private static final String[] NAMES = { "kot", "pies", "chomik", "koń", "krowa", "kura", "indyk", "kogut", "świnia", "słoń", "żyrafa", "tygrys", "lew", "mrówka", "pająk", "mysz polna", "jaszczurka", "żmija", "wąż", "zając", "dzik", "królik", "wiewiórka", "żaba", "sarna", "jeleń", "pantera", "kuna", "małpa", "goryl", "hipopotam", "niedźwiedź", "krokodyl", "borsuk", "wilk", "lis", "fretka", "surykatka", "panda", "jeż", "jeżozwierz", "hiena", "leniwiec", "zebra", "kameleon", "łoś", "lama", "jastrząb", "jaskółka,sowa", "wrona", "gawron", "bocian biały", "bocian czarny", "jemiołuszka", "dzięcioł", "kawka", "wróbel", "sikorka bogatka", "papuga", "wieloryb", "delfin", "mors", "żółw", "bóbr", "foka", "czapla", "pingwin"
+    };
+    private static final List<String> availableUsernames = new LinkedList<>();
     private static int lastGeneratedIndex = 0;
 
 
@@ -32,15 +26,14 @@ public class UsernameService {
     }
 
     private String generateNewUsername() {
-        if (availableUserNames.size() == 0) {
+        if (availableUsernames.size() == 0) {
             lastGeneratedIndex++;
-            availableUserNames.addAll(Arrays.stream(NAMES)
-                    .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1) +
-                            (lastGeneratedIndex == 1 ? "" : (" " + lastGeneratedIndex)))
+            availableUsernames.addAll(Arrays.stream(NAMES)
+                    .map(n -> n.substring(0, 1).toUpperCase() + n.substring(1) + ( lastGeneratedIndex == 1 ? "" : (" " + lastGeneratedIndex)))
                     .collect(Collectors.toSet()));
         }
 
-        final int randomIndex = RANDOM.nextInt(availableUserNames.size());
-        return availableUserNames.remove(randomIndex);
+        int randomIndex = RANDOM.nextInt(availableUsernames.size());
+        return availableUsernames.remove(randomIndex);
     }
 }
